@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=
+    , initial-scale=1.0">
+    <title>Ajax - loading text/html/json file from local folder</title>
+</head>
+
+<body>
+
+    <h1>Ajax - load local APIs</h1>
+
+    <div id="load">
+
+    </div>
+
+    <button id="btn">Click</button>
+
+
+    <script>
+
+        document.getElementById('btn').addEventListener('click', loadLocalAPI);
+
+        function loadLocalAPI() {
+
+            let xhr = new XMLHttpRequest();
+
+
+            //loadind local text file
+            //xhr.open('GET','sample.txt',true);
+
+            //loadind local html file
+            //xhr.open('GET','user.html',true);
+
+            //loadind local json file
+            //xhr.open('GET','student.json',true);
+
+            xhr.open('GET', 'multiUsers.json', true);
+
+            xhr.onload = function () {
+                if (this.status === 200) {
+                    //console.log(this.responseText);
+                    //document.getElementById('load').innerHTML = this.responseText;
+
+                    //let jsonData = JSON.parse(this.responseText);
+
+                    // document.getElementById('load').innerHTML = 
+                    // `
+                    // <h1>User</h1>
+                    // <p>Enroll: ${jsonData.roll}</p>
+                    // <p>Name: ${jsonData.name}</p>
+
+                    // `;  
+
+                    let multiUsers = JSON.parse(this.responseText);
+
+                    let output = "";
+
+                    for (let key in multiUsers) {
+
+                        output +=
+                            `
+                        <div>
+                            <p>Name: ${multiUsers[key].name}</p>
+                            <p>Age: ${multiUsers[key].age}</p>
+                        </div>
+                        <hr>
+                        `
+                    }
+
+                    document.getElementById('load').innerHTML = output;
+
+
+
+                }
+
+                else {
+                    console.error("ERROR!")
+                }
+            }
+
+            xhr.send();
+
+        }
+
+
+
+    </script>
+
+</body>
+
+</html>
